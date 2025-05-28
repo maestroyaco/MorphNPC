@@ -1,0 +1,484 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --text-color: #333;
+    --text-light: #555;
+    --bg-color: #f4f6f8;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --header-height: 80px; /* Estimación, ajustar si es necesario para el sticky top */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth; /* Para el enlace #como-crear y paginación */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    padding: 0 20px 20px 20px; /* No padding top, el header lo gestiona */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap; /* Para responsividad */
+    /* Para que el contenido no se solape con el sticky cart si el header es transparente o más pequeño */
+    position: relative; 
+    z-index: 10; /* Asegura que el header esté sobre el carrito si se solapan un poco */
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    color: var(--primary-color);
+    margin-right: 30px;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+	display: flex;
+    align-items: center;
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main-nav li {
+    margin-right: 20px;
+}
+.main-nav li:last-child {
+    margin-right: 0;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.main-nav a:hover, .main-nav a.active {
+    color: var(--primary-color);
+}
+
+.main-nav a i {
+    margin-right: 5px;
+}
+
+.stars-count {
+    font-size: 0.85em;
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+    font-weight: 600;
+}
+
+.header-actions {
+    margin-left: auto;
+     margin-top: -4px;
+}
+.paypal-donate-form {
+    display: inline-block;
+}
+
+.buy-coffee-button {
+    border: none;
+    outline: none;
+    background-color: #0000008a;
+    color: #FFFFFF;
+    padding: 7px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.buy-coffee-button:hover {
+    background-color: #6F360D;
+}
+
+.buy-coffee-button i {
+    font-size: 20px;
+}
+
+.paypal-donate-form input[type="image"] {
+    border: none !important;
+    outline: none !important;
+}
+
+main {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    position: relative; /* Necesario para que el sticky cart-section se posicione respecto a main */
+}
+
+.gallery-section {
+    flex: 3;
+    min-width: 300px; /* Asegura que la galería no se comprima demasiado */
+}
+
+.gallery-section h2 {
+    margin-bottom: 20px;
+}
+
+/* ---- MODIFICACIÓN PARA CARRITO STICKY ---- */
+.cart-section {
+    flex: 1;
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    min-width: 280px; /* Mínimo ancho para el carrito */
+    
+    /* Sticky behavior */
+    position: sticky;
+    top: 20px; /* Espacio desde la parte superior del viewport (o de main si es más alto) */
+    align-self: flex-start; /* Importante para que el sticky funcione correctamente en un contenedor flex */
+    max-height: calc(100vh - 40px); /* Altura máxima, permitiendo scroll interno si el contenido es mucho */
+    display: flex; /* Para controlar mejor el contenido interno */
+    flex-direction: column; /* Apilar los hijos verticalmente */
+}
+
+/* Contenedor para los ítems del carrito para permitir scroll independiente del resto del cart-section */
+#cart-items-container { /* Nuevo contenedor para los ítems del carrito */
+    flex-grow: 1; /* Permite que esta sección crezca y empuje las acciones hacia abajo */
+    overflow-y: auto; /* Scroll solo para los ítems si exceden el espacio */
+    margin-bottom: 15px; /* Espacio antes de los botones de acción */
+}
+
+#cart-items {
+    list-style: none;
+    padding: 0;
+    /* max-height y overflow-y ahora se manejan por #cart-items-container */
+}
+/* ---- FIN MODIFICACIÓN CARRITO STICKY ---- */
+
+
+h2 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.npc-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.npc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.npc-card img {
+    max-width: 100%;
+    height: 100px;
+    aspect-ratio: 1 / 1;
+    object-fit: scale-down;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #eee;
+}
+
+.npc-card h3 {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-weight: 500;
+    flex-grow: 1;
+}
+
+.button, .button-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.button:last-child, .button-secondary:last-child {
+    margin-bottom: 0;
+}
+
+.button i, .button-secondary i {
+    margin-right: 8px;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}
+
+.button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.button.added {
+    background-color: var(--secondary-color);
+}
+.button.added:hover {
+    background-color: #27ae60;
+}
+
+.button-secondary {
+    background-color: var(--danger-color);
+}
+.button-secondary:hover {
+    background-color: #c0392b;
+}
+
+/* #cart-items ya está definido arriba, solo ajustamos el contenedor */
+
+/* Estilos para los ítems del carrito con miniaturas */
+#cart-items li {
+    display: flex; /* Mantenemos flex para alinear el contenido del li */
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9em;
+}
+
+.cart-item-info {
+    display: flex; /* Flex para alinear la miniatura y el nombre */
+    align-items: center; /* Centrar verticalmente la imagen y el texto */
+    gap: 10px; /* Espacio entre la miniatura y el nombre */
+    flex-grow: 1; /* Para que ocupe el espacio disponible y empuje el botón de quitar a la derecha */
+    margin-right: 10px; /* Espacio antes del botón de quitar */
+}
+
+.cart-item-thumbnail {
+    width: 40px; /* Ancho de la miniatura */
+    height: 40px; /* Alto de la miniatura */
+    object-fit: scale-down; /* o 'cover' o 'contain' según prefieras */
+    border-radius: 4px; /* Bordes redondeados opcionales */
+    border: 1px solid var(--border-color); /* Borde sutil opcional */
+    background-color: #f0f0f0; /* Color de fondo mientras carga o si no hay imagen */
+}
+
+/* El span para el nombre del item (ID) dentro de cart-item-info no necesita mucho estilo específico
+   a menos que quieras cambiar su fuente, color, etc. Heredará de #cart-items li */
+
+#cart-items li:last-child {
+    border-bottom: none;
+}
+
+#cart-items .remove-item-btn {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    font-size: 1em;
+    padding: 5px;
+    flex-shrink: 0; /* Evita que el botón se encoja si el nombre es muy largo */
+}
+#cart-items .remove-item-btn:hover {
+    color: #a5281b;
+}
+
+
+#cart-items li:last-child {
+    border-bottom: none;
+}
+
+#cart-items .remove-item-btn {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    font-size: 1em;
+    padding: 5px;
+}
+#cart-items .remove-item-btn:hover {
+    color: #a5281b;
+}
+
+.cart-actions {
+    margin-top: auto; /* Empuja las acciones al final del contenedor flex .cart-section */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.pagination button {
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+}
+
+.pagination button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.pagination button.active {
+    background-color: var(--primary-color);
+    color: white;
+    cursor: default;
+}
+
+.pagination button:disabled {
+    background-color: #e0e0e0;
+    color: #a0a0a0;
+    border-color: #d0d0d0;
+    cursor: not-allowed;
+}
+
+.content-section {
+    background-color: var(--card-bg);
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    width: 100%;
+}
+.content-section h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.content-section ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+.content-section p {
+    margin-bottom: 15px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+.made-with-love .fas.fa-heart {
+    color: #e74c3c;
+    margin-left: 5px;
+}
+
+.made-with-love .fas.fa-heart:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+@media (max-width: 992px) { 
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-content {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+     .header-actions {
+        margin-left: 0; 
+        width: auto;
+    }
+    header h1 {
+         margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+    .gallery-section, .cart-section {
+        width: 100%;
+    }
+    .cart-section {
+        position: relative; /* En móvil, el sticky puede no ser ideal o necesitar ajustes */
+        top: auto;
+        max-height: none; /* Quitar restricción de altura en móvil */
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 15px;
+    }
+    .npc-card img {
+        height: 100px;
+    }
+     header h1 {
+        font-size: 1.6em;
+    }
+    .main-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .main-nav li {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+}

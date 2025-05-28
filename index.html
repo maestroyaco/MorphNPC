@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphNPC Gratis | Descarga los SWF</title>
+	<!-- CAMBIO: Favicon añadido -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+		    <h1>
+			  <img src="favicon.ico" alt="MorhpNPC" width="37" height="37">
+              MorphNPC Gratis | Descarga los SWF
+			</h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#como-crear">Cómo crear un NPC</a></li>                    
+					<!-- Place this tag where you want the button to render. -->
+                    <li><a class="github-button" href="https://github.com/maestroyaco/MorphNPC" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star maestroyaco/MorphNPC on GitHub">Star</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-actions">
+            <!-- PayPal Donation Button -->
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="paypal-donate-form">
+    <input type="hidden" name="cmd" value="_donations">
+    <input type="hidden" name="business" value="tutorialesyaco@gmail.com">
+    <input type="hidden" name="item_name" value="Apoyo al proyecto MorphNPC y Futuras Tools">
+    <input type="hidden" name="currency_code" value="USD">
+    <button type="submit" class="buy-coffee-button">
+        <i class="fas fa-mug-hot"></i> Buy me a coffee
+    </button>
+</form>
+        </div>
+    </header>
+
+    <main>
+        <section class="gallery-section">
+            <h2>Skins Disponibles (<span id="total-items-count">0</span>)</h2>
+            <div id="gallery-container" class="gallery-grid">
+                <!-- Las tarjetas de los NPC se generarán aquí con JS -->
+            </div>
+            <div id="pagination-controls" class="pagination">
+                <!-- Los controles de paginación se generarán aquí -->
+            </div>
+        </section>
+
+        <aside class="cart-section">
+            <h2><i class="fas fa-shopping-cart"></i> Carrito (<span id="cart-count">0</span>)</h2>
+            <div id="cart-items-container"> <!-- Contenedor añadido aquí -->
+                <ul id="cart-items">
+                    <!-- Los ítems del carrito se listarán aquí -->
+                </ul>
+            </div> <!-- Fin del contenedor añadido -->
+            <div class="cart-actions">
+                <button id="download-selected-btn" class="button" disabled>
+                    <i class="fas fa-download"></i> Descargar Seleccionados
+                </button>
+                <button id="clear-cart-btn" class="button button-secondary">
+                    <i class="fas fa-trash"></i> Vaciar Carrito
+                </button>
+            </div>
+        </aside>
+    </main>
+    
+    <!-- Placeholder para la sección "Cómo crear NPC" -->
+    <section id="como-crear" class="content-section">
+        <h2>Cómo Crear un NPC (Skin)</h2>
+        <p>Pronto tendremos mucho mas contenido, pero por ahora te dejaremos unos pasos basicos, para usar los packs MorhpNPC</p>
+        <p>Por ejemplo:</p>
+        <ul>
+            <li>Agregar el Pack MorhpNPC a retroclient/clips/sprites (Solo los SWF)</li>
+            <li>Crear un nuevo campo en la Base de datos npc_template y en gfxID poner el #ID del skin que descargaste</li>
+            <li>Editar el lang en: data/lang/swf/npc_es_#.swf agregando el ID identificador del NPC</li>
+            <li>Haz lo mismo para cada Skin de NPC descargado en el Pack MorhpNPC.</li>
+			<li>Tambien puedes usar los MorhpNPC para cambiar tu apariencia con el comando morph + ID</li>
+        </ul>
+        <p>Pasa por nuestro <a href=" https://discord.gg/yZnADDUKHx" target="_blank" rel="noopener noreferrer">Discord</a> de servidores privados, para encontrar soporte. </p>
+    </section>
+
+    <footer>	
+        <p>MorphNPC Open Source - Hecho con <span class="made-with-love"><i class="fas fa-heart"></i> </span> para la comunidad Latino-Francesa.</p>
+		<p>© 2025 Creado por <a href="https://maestro-yaco.blogspot.com/" target="_blank" rel="noopener noreferrer">MaestroYaco</a>.</p>
+    </footer>
+
+    <script src="libs/jszip.min.js"></script>
+	<!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
