@@ -1,8 +1,8 @@
-# MorphNPC Gratis | Descarga los SWF  бесплатные морфы нпс
+# MorphNPC | Descarga Gratis los SWF
 
-![Portada MorphNPC](Screenshot/Screenshot_01.png)
+![Portada MorphNPC](Screenshot/Screenshot_1.png)
 
-**¡Bienvenido a MorphNPC Gratis! Tu fuente definitiva para previsualizar y descargar Morph SWF para tus proyectos y servidores privados. Creado con ❤️ para la comunidad Latino-Francesa y para todos los entusiastas de la personalización.**
+**¡Bienvenido a MorphNPC ! Tu fuente definitiva para previsualizar y descargar Morph SWF para tus proyectos y servidores privados. Creado con ❤️ para la comunidad Latino-Francesa y para todos los entusiastas de la personalización.**
 
 Pensado tanto para los recién llegados como para los veteranos en la creación de servidores, MorphNPC facilita la exploración visual de una vasta colección de SWF. Aquí podrás encontrar la inspiración que necesitas y descargar los assets para crear tus propios Packs de MorphNPC, llevando tu creatividad al máximo en tus mapas, eventos y aventuras.
 
@@ -31,7 +31,7 @@ Nuestro objetivo es proporcionar una herramienta útil y accesible, fomentando l
 
 ## 🚀 Empezando
 
-1.  **Visita la web:** [https://maestroyaco.github.io/MorphNPC/]
+1.  **Visita la web:** [https://maestroyaco.github.io/MorphNPC/](https://maestroyaco.github.io/MorphNPC)
 2.  **Explora la galería:** Utiliza la paginación para ver todos los skins disponibles.
 3.  **Añade al carrito:** Haz clic en "Añadir" en los skins que te interesen.
 4.  **Descarga tu pack:** Ve al carrito y haz clic en "Descargar Seleccionados". Recibirás un archivo ZIP con los archivos SWF y PNG.
@@ -65,24 +65,24 @@ Si deseas contribuir:
 Si MorphNPC Gratis te resulta útil, considera apoyar su desarrollo y el de futuras herramientas:
 
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=tutorialesyaco@gmail.com&item_name=Apoyo%20al%20proyecto%20MorphNPC%20y%20Futuras%20Tools¤cy_code=USD)
-*(El botón de "Buy me a coffee" en la web usa el mismo enlace de PayPal)*
+
 
 ---
 ---
 
 <!-- Versión en Francés -->
 
-# MorphNPC Gratuit | Téléchargez les SWF
+# MorphNPC | Téléchargez Gratuit les SWF
 
-![Couverture MorphNPC](Screenshot/Screenshot_01.png)
+![Couverture MorphNPC](Screenshot/Screenshot_1.png)
 
-**Bienvenue sur MorphNPC Gratuit ! Votre source ultime pour prévisualiser et télécharger des Morph SWF pour vos projets et serveurs privés. Créé avec ❤️ pour la communauté Latino-Française et pour tous les passionnés de personnalisation.**
+**Bienvenue sur MorphNPC ! Votre source ultime pour prévisualiser et télécharger des Morph SWF pour vos projets et serveurs privés. Créé avec ❤️ pour la communauté Latino-Française et pour tous les passionnés de personnalisation.**
 
 Conçu aussi bien pour les nouveaux venus que pour les vétérans de la création de serveurs, MorphNPC facilite l'exploration visuelle d'une vaste collection de SWF. Ici, vous pourrez trouver l'inspiration dont vous avez besoin et télécharger les ressources pour créer vos propres Packs MorphNPC, poussant votre créativité au maximum dans vos cartes, événements et aventures.
 
 ---
 
-## 🌟 Qu'est-ce que MorphNPC Gratuit ?
+## 🌟 Qu'est-ce que MorphNPC ?
 
 MorphNPC Gratuit est une plateforme web Open Source conçue pour :
 
@@ -105,7 +105,7 @@ Notre objectif est de fournir un outil utile et accessible, encourageant la cré
 
 ## 🚀 Pour Commencer
 
-1.  **Visitez le site web :** [Lien vers votre GitHub Pages ici lorsqu'il sera prêt - ex : https://maestroyaco.github.io/MorphNPC/]
+1.  **Visitez le site web :** [https://maestroyaco.github.io/MorphNPC/](https://maestroyaco.github.io/MorphNPC)
 2.  **Explorez la galerie :** Utilisez la pagination pour voir tous les skins disponibles.
 3.  **Ajoutez au panier :** Cliquez sur "Ajouter" sur les skins qui vous intéressent.
 4.  **Téléchargez votre pack :** Allez dans le panier et cliquez sur "Télécharger la Sélection". Vous recevrez un fichier ZIP avec les fichiers SWF et PNG.
@@ -139,4 +139,3 @@ Connectez-vous avec d'autres créateurs, partagez vos projets et obtenez de l'ai
 Si MorphNPC Gratuit vous est utile, envisagez de soutenir son développement et celui de futurs outils :
 
 [![Offrez-moi un café](https://img.shields.io/badge/Offrez%20moi%20un%20caf%C3%A9-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=tutorialesyaco@gmail.com&item_name=Soutien%20au%20projet%20MorphNPC%20et%20futurs%20outils¤cy_code=USD)
-*(Le bouton "Offrez-moi un café" sur le site web utilise le même lien PayPal)*
