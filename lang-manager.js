@@ -1,10 +1,10 @@
 const LANG_STORAGE_KEY = 'morphNPCLang';
 const DEFAULT_LANG = 'es';
 
-const FLAGS = {
-    'es': '🇨🇴',
-    'fr': '🇫🇷',
-    'pt': '🇧🇷'
+const LANG_CODES = {
+    'es': 'ES',
+    'fr': 'FR',
+    'pt': 'PT'
 };
 
 function setLanguage(lang) {
@@ -50,9 +50,9 @@ function updateDOMText(lang) {
 }
 
 function updateLanguageSelectorState(lang) {
-    const currentLangFlagSpan = document.getElementById('current-lang-flag');
-    if (currentLangFlagSpan && FLAGS[lang]) {
-        currentLangFlagSpan.textContent = FLAGS[lang];
+    const currentLangTextSpan = document.getElementById('current-lang-text');
+    if (currentLangTextSpan && LANG_CODES[lang]) {
+        currentLangTextSpan.textContent = `LANG: ${LANG_CODES[lang]}`;
     }
 }
 
