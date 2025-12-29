@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="title">MorphNPC Gratis | Descarga los SWF</title>
-	<!-- CAMBIO: Favicon añadido -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,15 +17,14 @@
 			</h1>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html" class="active" data-i18n="nav_home">Inicio</a></li>
-                    <li><a href="tutorial.html" data-i18n="nav_tutorial">Cómo crear un NPC</a></li>
+                    <li><a href="index.html" data-i18n="nav_home">Inicio</a></li>
+                    <li><a href="tutorial.html" class="active" data-i18n="nav_tutorial">Cómo crear un NPC</a></li>
 					<!-- Place this tag where you want the button to render. -->
                     <li><a class="github-button" href="https://github.com/maestroyaco/MorphNPC" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star maestroyaco/MorphNPC on GitHub" data-i18n="star_github">Star</a></li>
                 </ul>
             </nav>
         </div>
         <div class="header-actions">
-            <!-- Language Selector -->
             <div class="lang-dropdown">
                 <button class="lang-dropbtn" id="current-lang-btn" title="Change Language">
                     <span id="current-lang-flag">🇨🇴</span> <i class="fas fa-caret-down"></i>
@@ -41,44 +39,28 @@
     </header>
 
     <main>
-        <section class="gallery-section">
-            <h2><span data-i18n="skins_available">Skins Disponibles</span> (<span id="total-items-count">0</span>)</h2>
-            <div id="gallery-container" class="gallery-grid">
-                <!-- Las tarjetas de los NPC se generarán aquí con JS -->
-            </div>
-            <div id="pagination-controls" class="pagination">
-                <!-- Los controles de paginación se generarán aquí -->
-            </div>
+        <section class="tutorial-content">
+            <h2 data-i18n="tutorial_title">Cómo Crear un NPC (Skin)</h2>
+            <p data-i18n="tutorial_intro">Pronto tendremos mucho mas contenido, pero por ahora te dejaremos unos pasos basicos, para usar los packs MorhpNPC</p>
+            <p data-i18n="tutorial_example">Por ejemplo:</p>
+            <ul>
+                <li data-i18n="step_1">Agregar el Pack MorhpNPC a retroclient/clips/sprites (Solo los SWF)</li>
+                <li data-i18n="step_2">Crear un nuevo campo en la Base de datos npc_template y en gfxID poner el #ID del skin que descargaste</li>
+                <li data-i18n="step_3">Editar el lang en: data/lang/swf/npc_es_#.swf agregando el ID identificador del NPC</li>
+                <li data-i18n="step_4">Haz lo mismo para cada Skin de NPC descargado en el Pack MorhpNPC.</li>
+			    <li data-i18n="step_5">Tambien puedes usar los MorhpNPC para cambiar tu apariencia con el comando morph + ID</li>
+            </ul>
+            <p data-i18n="tutorial_discord" data-i18n-target="innerHTML">Pasa por nuestro <a href=" https://discord.gg/yZnADDUKHx" target="_blank" rel="noopener noreferrer">Discord</a> de servidores privados, para encontrar soporte. </p>
         </section>
-
-        <aside class="cart-section">
-            <h2><i class="fas fa-shopping-cart"></i> <span data-i18n="cart_title">Carrito</span> (<span id="cart-count">0</span>)</h2>
-            <div id="cart-items-container"> <!-- Contenedor añadido aquí -->
-                <ul id="cart-items">
-                    <!-- Los ítems del carrito se listarán aquí -->
-                </ul>
-            </div> <!-- Fin del contenedor añadido -->
-            <div class="cart-actions">
-                <button id="download-selected-btn" class="button" disabled>
-                    <i class="fas fa-download"></i> <span data-i18n="download_selected">Descargar Seleccionados</span>
-                </button>
-                <button id="clear-cart-btn" class="button button-secondary">
-                    <i class="fas fa-trash"></i> <span data-i18n="clear_cart">Vaciar Carrito</span>
-                </button>
-            </div>
-        </aside>
     </main>
-    
-    <footer>	
+
+    <footer>
         <p><span data-i18n="footer_text">MorphNPC Open Source - Hecho con</span> <span class="made-with-love"><i class="fas fa-heart"></i> </span> <span data-i18n="footer_community">para la comunidad Latino-Francesa.</span></p>
 		<p>© 2025 <span data-i18n="footer_created_by">Creado por</span> <a href="https://maestro-yaco.blogspot.com/" target="_blank" rel="noopener noreferrer">MaestroYaco</a>.</p>
     </footer>
 
-    <script src="libs/jszip.min.js"></script>
-	<!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="translations.js"></script>
     <script src="lang-manager.js"></script>
-    <script src="app.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

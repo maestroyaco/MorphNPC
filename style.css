@@ -18,7 +18,7 @@
 }
 
 html {
-    scroll-behavior: smooth; /* Para el enlace #como-crear y paginación */
+    scroll-behavior: smooth; /* Para paginación */
 }
 
 body {
@@ -100,38 +100,71 @@ header h1 {
     margin-left: auto;
      margin-top: -4px;
 }
-.paypal-donate-form {
+
+/* .buy-coffee-button removed */
+
+/* Language Selector Dropdown */
+.lang-dropdown {
+    position: relative;
     display: inline-block;
 }
 
-.buy-coffee-button {
-    border: none;
-    outline: none;
-    background-color: #0000008a;
-    color: #FFFFFF;
-    padding: 7px 12px;
+.lang-dropbtn {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
-    font-size: 12px;
-    font-weight: bold;
     cursor: pointer;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 10px;
-    transition: background-color 0.3s ease;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.lang-dropbtn:hover {
+    background-color: #eaeaea;
+}
+
+.lang-dropbtn span {
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+.lang-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--card-bg);
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    z-index: 20;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.lang-dropdown-content button {
+    color: var(--text-color);
+    padding: 12px 16px;
     text-decoration: none;
+    display: block;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.1s;
 }
 
-.buy-coffee-button:hover {
-    background-color: #6F360D;
+.lang-dropdown-content button:hover {
+    background-color: #f1f1f1;
 }
 
-.buy-coffee-button i {
-    font-size: 20px;
-}
-
-.paypal-donate-form input[type="image"] {
-    border: none !important;
-    outline: none !important;
+.lang-dropdown:hover .lang-dropdown-content {
+    display: block;
 }
 
 main {
@@ -481,4 +514,47 @@ footer a:hover {
         margin-right: 0;
         margin-bottom: 8px;
     }
+}/* Estilos específicos para la página de tutorial para que parezca un blog/doc */
+.tutorial-content {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    background: #fff; /* O el color de fondo de tus tarjetas */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Dark mode compatibility if applicable in style.css, otherwise default white */
+@media (prefers-color-scheme: dark) {
+    .tutorial-content {
+        background: #2a2a2a;
+        color: #e0e0e0;
+    }
+}
+
+.tutorial-content h2 {
+    margin-top: 0;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.tutorial-content ul {
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.tutorial-content li {
+    margin-bottom: 10px;
+}
+
+.tutorial-content a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.tutorial-content a:hover {
+    text-decoration: underline;
 }
