@@ -120,11 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- renderGallery y funciones de botones (actualizadas para usar navigateToPage) ---
     function renderGallery() {
-        if (!galleryContainer) return; // Guard clause for tutorial page
-
-        const currentLang = getSavedLanguage();
-        const t = TRANSLATIONS[currentLang];
-
         galleryContainer.innerHTML = '';
         
         const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -132,17 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const itemsToDisplay = allItems.slice(startIndex, endIndex);
 
         if (allItems.length === 0 && !galleryContainer.querySelector('p')) {
-            const p = document.createElement('p');
-            p.dataset.i18n = "no_skins";
-            p.textContent = t.no_skins;
-            galleryContainer.appendChild(p);
+            galleryContainer.innerHTML = "<p>Aún no hay skins disponibles.</p>";
             return;
         }
         if (itemsToDisplay.length === 0 && allItems.length > 0) {
-             const p = document.createElement('p');
-             p.dataset.i18n = "no_more_skins";
-             p.textContent = t.no_more_skins;
-             galleryContainer.appendChild(p);
+             galleryContainer.innerHTML = "<p>No hay más skins para mostrar en esta página.</p>";
              return;
         }
 
@@ -172,13 +161,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateButtonVisualState(button, itemId) {
-        const currentLang = getSavedLanguage();
-        const t = TRANSLATIONS[currentLang];
         if (cart.has(itemId)) {
-            button.innerHTML = t.btn_remove;
+            button.innerHTML = '<i class="fas fa-check"></i> Quitar';
             button.classList.add('added');
         } else {
-            button.innerHTML = t.btn_add;
+            button.innerHTML = '<i class="fas fa-cart-plus"></i> Añadir';
             button.classList.remove('added');
         }
     }
@@ -208,10 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderPaginationControls() {
-        if (!paginationControlsContainer) return;
-        const currentLang = getSavedLanguage();
-        const t = TRANSLATIONS[currentLang];
-
         paginationControlsContainer.innerHTML = '';
         if (allItems.length === 0) return; // No mostrar paginación si no hay items
 
@@ -235,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Botón "Anterior"
-        paginationControlsContainer.appendChild(createPageButton(currentPage - 1, t.pagination_prev, currentPage === 1));
+        paginationControlsContainer.appendChild(createPageButton(currentPage - 1, '« Anterior', currentPage === 1));
 
         // Lógica de los números de página (con "...")
         const pagesToShow = [];
@@ -279,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // Botón "Siguiente"
-        paginationControlsContainer.appendChild(createPageButton(currentPage + 1, t.pagination_next, currentPage === totalPages));
+        paginationControlsContainer.appendChild(createPageButton(currentPage + 1, 'Siguiente »', currentPage === totalPages));
     }
 
     // --- Funciones del carrito (renderCart, clearCartBtn, downloadSelectedBtn) sin cambios mayores ---
@@ -287,18 +270,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Asegúrate de que estas funciones sigan usando `allItems` correctamente.
 
 function renderCart() {
-    if (!cartItemsUl) return; // Guard clause for tutorial page
-    const currentLang = getSavedLanguage();
-    const t = TRANSLATIONS[currentLang];
-
     cartItemsUl.innerHTML = ''; // Limpiar siempre antes de re-renderizar
-    if(cartCountSpan) cartCountSpan.textContent = cart.size;
-    if(downloadSelectedBtn) downloadSelectedBtn.disabled = cart.size === 0;
+    cartCountSpan.textContent = cart.size;
+    downloadSelectedBtn.disabled = cart.size === 0;
 
     if (cart.size === 0) {
         const emptyLi = document.createElement('li');
-        emptyLi.textContent = t.cart_empty;
-        emptyLi.dataset.i18n = "cart_empty";
+        emptyLi.textContent = "Tu carrito está vacío.";
         cartItemsUl.appendChild(emptyLi);
     } else {
         if (allItems.length > 0) {
@@ -360,40 +338,28 @@ function renderCart() {
         } else {
             if (cart.size > 0) {
                 const loadingLi = document.createElement('li');
-                loadingLi.textContent = t.cart_loading.replace('{n}', cart.size);
+                loadingLi.textContent = `Tienes ${cart.size} item(s). Cargando detalles...`;
                 cartItemsUl.appendChild(loadingLi);
             }
         }
     }
 }
+    clearCartBtn.addEventListener('click', () => {
+        cart.clear();
+        saveCartToStorage();
+        renderCart();
+        updateAllGalleryButtonVisuals();
+    });
 
-    // Add event listener only if element exists (for tutorial page compatibility)
-    if (clearCartBtn) {
-        clearCartBtn.addEventListener('click', () => {
-            cart.clear();
-            saveCartToStorage();
-            renderCart();
-            updateAllGalleryButtonVisuals();
-        });
-    }
-
-    if (downloadSelectedBtn) {
-        downloadSelectedBtn.addEventListener('click', async () => {
-            if (cart.size === 0 || allItems.length === 0) {
-                // Should use translations for alert too, but keeping simple for now or fetch from t
-                // alert("El carrito está vacío o los datos de los items aún no han cargado.");
-                return;
-            }
-            const currentLang = getSavedLanguage();
-            const t = TRANSLATIONS[currentLang];
-
-            // Store the original HTML structure (icon + span)
-            const originalButtonContent = downloadSelectedBtn.innerHTML;
-
-            downloadSelectedBtn.disabled = true;
-            downloadSelectedBtn.innerHTML = t.btn_processing;
-
-            const zip = new JSZip();
+    downloadSelectedBtn.addEventListener('click', async () => {
+        if (cart.size === 0 || allItems.length === 0) {
+            alert("El carrito está vacío o los datos de los items aún no han cargado.");
+            return;
+        }
+        const originalButtonText = downloadSelectedBtn.innerHTML;
+        downloadSelectedBtn.disabled = true;
+        downloadSelectedBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+        const zip = new JSZip();
         const folderName = "Pack MorphNPC";
         const folder = zip.folder(folderName);
         let filesSuccessfullyAddedToZip = 0;
@@ -438,12 +404,8 @@ function renderCart() {
             alert("No se pudieron agregar archivos al ZIP...");
         }
         downloadSelectedBtn.disabled = cart.size === 0;
-
-        // Restore button state with potentially new language text
-        const t_latest = TRANSLATIONS[getSavedLanguage()];
-        downloadSelectedBtn.innerHTML = `<i class="fas fa-download"></i> <span data-i18n="download_selected">${t_latest.download_selected}</span>`;
+        downloadSelectedBtn.innerHTML = originalButtonText;
     });
-    } // End if (downloadSelectedBtn)
 
 
     // --- Event Listener para cambios en el Hash de la URL ---
@@ -463,17 +425,8 @@ function renderCart() {
         }
     });
 
-    // Listen for language changes to update dynamic JS content
-    document.addEventListener('languageChanged', () => {
-        renderGallery(); // Re-render gallery cards with new button text and empty state text
-        renderPaginationControls(); // Update prev/next buttons
-        renderCart(); // Update cart text
-    });
-
     // --- Inicialización ---
     loadCartFromStorage();
-    // Only fetch data if we are on the main page (gallery present)
-    if (galleryContainer) {
-        fetchData();
-    }
+    fetchData(); // Carga allItems, establece currentPage desde el hash, y luego renderiza.
+    // renderCart(); // RenderCart ahora se llama dentro de fetchData y navigateToPage
 });
