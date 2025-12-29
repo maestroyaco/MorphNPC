@@ -62,10 +62,7 @@ Si deseas contribuir:
 
 ## ❤️ Apoya el Proyecto
 
-Si MorphNPC Gratis te resulta útil, considera apoyar su desarrollo y el de futuras herramientas:
-
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=tutorialesyaco@gmail.com&item_name=Apoyo%20al%20proyecto%20MorphNPC%20y%20Futuras%20Tools¤cy_code=USD)
-
+Si MorphNPC Gratis te resulta útil, considera apoyar su desarrollo y el de futuras herramientas.
 
 ---
 ---
@@ -136,6 +133,4 @@ Connectez-vous avec d'autres créateurs, partagez vos projets et obtenez de l'ai
 
 ## ❤️ Soutenez le Projet
 
-Si MorphNPC Gratuit vous est utile, envisagez de soutenir son développement et celui de futurs outils :
-
-[![Offrez-moi un café](https://img.shields.io/badge/Offrez%20moi%20un%20caf%C3%A9-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=tutorialesyaco@gmail.com&item_name=Soutien%20au%20projet%20MorphNPC%20et%20futurs%20outils¤cy_code=USD)
+Si MorphNPC Gratuit vous est utile, envisagez de soutenir son développement et celui de futurs outils.
