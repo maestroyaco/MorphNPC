@@ -18,7 +18,7 @@
 }
 
 html {
-    scroll-behavior: smooth; /* Para paginación */
+    scroll-behavior: smooth; /* Para el enlace #como-crear y paginación */
 }
 
 body {
@@ -100,38 +100,38 @@ header h1 {
     margin-left: auto;
      margin-top: -4px;
 }
-
-/* .buy-coffee-button removed */
-
-/* Language Selector */
-.lang-selector {
-    display: flex;
-    gap: 8px;
+.paypal-donate-form {
+    display: inline-block;
 }
 
-.lang-btn {
-    background: none;
-    border: 1px solid transparent;
+.buy-coffee-button {
+    border: none;
+    outline: none;
+    background-color: #0000008a;
+    color: #FFFFFF;
+    padding: 7px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 1.5em; /* Emoji flag size */
-    padding: 2px 6px;
-    border-radius: 4px;
-    transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
-    filter: grayscale(0.5); /* Slightly muted by default */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 
-.lang-btn:hover {
-    background-color: rgba(0,0,0,0.05);
-    filter: grayscale(0);
-    transform: scale(1.1);
+.buy-coffee-button:hover {
+    background-color: #6F360D;
 }
 
-.lang-btn.active {
-    background-color: #e3f2fd;
-    border-color: #90caf9;
-    filter: grayscale(0);
-    transform: scale(1.1);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+.buy-coffee-button i {
+    font-size: 20px;
+}
+
+.paypal-donate-form input[type="image"] {
+    border: none !important;
+    outline: none !important;
 }
 
 main {
@@ -481,47 +481,4 @@ footer a:hover {
         margin-right: 0;
         margin-bottom: 8px;
     }
-}/* Estilos específicos para la página de tutorial para que parezca un blog/doc */
-.tutorial-content {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 40px;
-    background: #fff; /* O el color de fondo de tus tarjetas */
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    line-height: 1.6;
-    color: #333;
-}
-
-/* Dark mode compatibility if applicable in style.css, otherwise default white */
-@media (prefers-color-scheme: dark) {
-    .tutorial-content {
-        background: #2a2a2a;
-        color: #e0e0e0;
-    }
-}
-
-.tutorial-content h2 {
-    margin-top: 0;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-.tutorial-content ul {
-    padding-left: 20px;
-    margin-bottom: 20px;
-}
-
-.tutorial-content li {
-    margin-bottom: 10px;
-}
-
-.tutorial-content a {
-    color: #3498db;
-    text-decoration: none;
-}
-
-.tutorial-content a:hover {
-    text-decoration: underline;
 }
