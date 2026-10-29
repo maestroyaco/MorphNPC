@@ -19,7 +19,6 @@
             <nav class="main-nav">
                 <ul>
                     <li><a href="#">Inicio</a></li>
-                    <li><a href="#como-crear">Cómo crear un NPC</a></li>                    
 					<!-- Place this tag where you want the button to render. -->
                     <li><a class="github-button" href="https://github.com/maestroyaco/MorphNPC" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star maestroyaco/MorphNPC on GitHub">Star</a></li>
                 </ul>
@@ -40,14 +39,23 @@
     </header>
 
     <main>
-        <section class="gallery-section">
-            <h2>Skins Disponibles (<span id="total-items-count">0</span>)</h2>
+        <section class="gallery-section" aria-labelledby="gallery-heading">
+            <nav class="category-nav" aria-label="Categorías de recursos">
+                <button type="button" class="category-button active" data-category="npc" aria-pressed="true"><i class="fas fa-user" aria-hidden="true"></i> NPC <span class="category-count">—</span></button>
+                <button type="button" class="category-button" data-category="ornaments" aria-pressed="false"><i class="fas fa-crown" aria-hidden="true"></i> Ornamentos <span class="category-count">—</span></button>
+                <button type="button" class="category-button" data-category="auras" aria-pressed="false"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> Auras <span class="category-count">—</span></button>
+                <button type="button" class="category-button" data-category="mounts" aria-pressed="false"><i class="fas fa-horse" aria-hidden="true"></i> Monturas <span class="category-count">—</span></button>
+            </nav>
+            <div class="gallery-heading"><h2 id="gallery-heading"><span id="category-title">NPC</span> (<span id="total-items-count">0</span>)</h2>
+                <label class="catalog-search">Buscar por ID <input id="catalog-search" type="search" placeholder="Ej. 7002" autocomplete="off"></label></div>
+            <p id="category-description" class="category-description">Explora los skins y añade tus favoritos al carrito.</p>
+            <p id="catalog-status" role="status" aria-live="polite">Cargando recursos…</p>
             <div id="gallery-container" class="gallery-grid">
                 <!-- Las tarjetas de los NPC se generarán aquí con JS -->
             </div>
-            <div id="pagination-controls" class="pagination">
+            <nav id="pagination-controls" class="pagination" aria-label="Páginas del catálogo">
                 <!-- Los controles de paginación se generarán aquí -->
-            </div>
+            </nav>
         </section>
 
         <aside class="cart-section">
@@ -67,23 +75,8 @@
             </div>
         </aside>
     </main>
-    
-    <!-- Placeholder para la sección "Cómo crear NPC" -->
-    <section id="como-crear" class="content-section">
-        <h2>Cómo Crear un NPC (Skin)</h2>
-        <p>Pronto tendremos mucho mas contenido, pero por ahora te dejaremos unos pasos basicos, para usar los packs MorhpNPC</p>
-        <p>Por ejemplo:</p>
-        <ul>
-            <li>Agregar el Pack MorhpNPC a retroclient/clips/sprites (Solo los SWF)</li>
-            <li>Crear un nuevo campo en la Base de datos npc_template y en gfxID poner el #ID del skin que descargaste</li>
-            <li>Editar el lang en: data/lang/swf/npc_es_#.swf agregando el ID identificador del NPC</li>
-            <li>Haz lo mismo para cada Skin de NPC descargado en el Pack MorhpNPC.</li>
-			<li>Tambien puedes usar los MorhpNPC para cambiar tu apariencia con el comando morph + ID</li>
-        </ul>
-        <p>Pasa por nuestro <a href=" https://discord.gg/yZnADDUKHx" target="_blank" rel="noopener noreferrer">Discord</a> de servidores privados, para encontrar soporte. </p>
-    </section>
 
-    <footer>	
+    <footer>
         <p>MorphNPC Open Source - Hecho con <span class="made-with-love"><i class="fas fa-heart"></i> </span> para la comunidad Latino-Francesa.</p>
 		<p>© 2025 Creado por <a href="https://maestro-yaco.blogspot.com/" target="_blank" rel="noopener noreferrer">MaestroYaco</a>.</p>
     </footer>
@@ -91,6 +84,6 @@
     <script src="libs/jszip.min.js"></script>
 	<!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=categories-1"></script>
 </body>
 </html>

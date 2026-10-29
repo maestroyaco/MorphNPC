@@ -21,6 +21,9 @@ Nuestro objetivo es proporcionar una herramienta útil y accesible, fomentando l
 
 ## ✨ Características Principales
 
+*   **Categorías:** NPC, 146 ornamentos, 41 auras y 177 monturas verificadas con animaciones de caminar y correr.
+*   **SWF originales y vistas previas reales:** Las monturas y auras conservan el archivo completo del cliente; cada ornamento se puede descargar por separado.
+*   **Búsqueda por ID y carrito mixto:** Reúne recursos de distintas categorías y descárgalos en carpetas separadas dentro del ZIP.
 *   **Galería Extensa:** Navega por mas de 3000 MIL skins con previsualización instantánea.
 *   **Paginación Intuitiva:** Explora la colección de forma ordenada y eficiente.
 *   **Carrito de Selección:** Agrupa tus skins favoritos antes de descargarlos.
@@ -35,7 +38,7 @@ Nuestro objetivo es proporcionar una herramienta útil y accesible, fomentando l
 2.  **Explora la galería:** Utiliza la paginación para ver todos los skins disponibles.
 3.  **Añade al carrito:** Haz clic en "Añadir" en los skins que te interesen.
 4.  **Descarga tu pack:** Ve al carrito y haz clic en "Descargar Seleccionados". Recibirás un archivo ZIP con los archivos SWF y PNG.
-5.  **¡Crea!** Utiliza los assets en tus proyectos. Consulta nuestra sección "Cómo crear un NPC" en la web para obtener guías básicas.
+5.  **¡Crea!** Utiliza los assets en tus proyectos. Explora las categorías NPC, ornamentos, auras y monturas. Consulta [la procedencia y validación del catálogo](docs/CATALOG.md).
 
 ## 🛠️ Para Desarrolladores y Contribuidores
 
@@ -106,7 +109,7 @@ Notre objectif est de fournir un outil utile et accessible, encourageant la cré
 2.  **Explorez la galerie :** Utilisez la pagination pour voir tous les skins disponibles.
 3.  **Ajoutez au panier :** Cliquez sur "Ajouter" sur les skins qui vous intéressent.
 4.  **Téléchargez votre pack :** Allez dans le panier et cliquez sur "Télécharger la Sélection". Vous recevrez un fichier ZIP avec les fichiers SWF et PNG.
-5.  **Créez !** Utilisez les ressources dans vos projets. Consultez notre section "Comment créer un PNJ" sur le site web pour des guides de base.
+5.  **Créez !** Utilisez les ressources dans vos projets. Parcourez les catégories PNJ, ornements, auras et montures. Consultez [la provenance et la validation du catalogue](docs/CATALOG.md).
 
 ## 🛠️ Pour les Développeurs et Contributeurs
 

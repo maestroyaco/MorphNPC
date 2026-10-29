@@ -10,7 +10,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const CART_STORAGE_KEY = 'morphNPCCart';
 
+    const CATEGORIES = {
+        npc: { title: 'NPC', description: 'Explora los skins y añade tus favoritos al carrito.' },
+        ornaments: { title: 'Ornamentos', description: 'Cada ornamento incluye su vista previa y un SWF individual con su símbolo original ornament_ID.' },
+        auras: { title: 'Auras', description: 'Auras del cliente con una captura real de su animación. El SWF conserva la animación original.' },
+        mounts: { title: 'Monturas', description: 'Monturas verificadas en clips/sprites. Vista previa del gráfico completo y descarga del SWF original.' }
+    };
+    const categoryButtons = document.querySelectorAll('[data-category]');
+    const searchInput = document.getElementById('catalog-search');
+    const status = document.getElementById('catalog-status');
+    let currentCategory = 'npc';
     let allItems = [];
+    let visibleItems = [];
+    let downloading = false;
+
+    function filterItems() {
+        const query = searchInput.value.trim().toLowerCase();
+        visibleItems = allItems.filter(item => item.category === currentCategory &&
+            (!query || item.name.toLowerCase().includes(query) || item.id.toLowerCase().includes(query)));
+        totalItemsCountSpan.textContent = visibleItems.length;
+        document.getElementById('category-title').textContent = CATEGORIES[currentCategory].title;
+        document.getElementById('category-description').textContent = CATEGORIES[currentCategory].description;
+        status.textContent = `${visibleItems.length} recursos en ${CATEGORIES[currentCategory].title}`;
+        categoryButtons.forEach(button => {
+            const active = button.dataset.category === currentCategory;
+            button.classList.toggle('active', active);
+            button.setAttribute('aria-pressed', String(active));
+        });
+    }
     let cart = new Set();
 
     let currentPage = 1; // Se actualizará desde la URL si es necesario
@@ -31,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         cartCountSpan.textContent = cart.size;
-        downloadSelectedBtn.disabled = cart.size === 0;
+        downloadSelectedBtn.disabled = downloading || cart.size === 0;
     }
 
     function saveCartToStorage() {
@@ -40,21 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Funciones de Paginación y URL Hash ---
     function getCurrentPageFromHash() {
-        const hash = window.location.hash.substring(1); // Quitar el '#'
-        if (hash.startsWith('page=')) {
-            const pageNum = parseInt(hash.split('=')[1], 10);
-            if (!isNaN(pageNum) && pageNum > 0) {
-                return pageNum;
-            }
-        }
-        return 1; // Default page
+        const params = new URLSearchParams(window.location.hash.slice(1));
+        const page = Number(params.get('page'));
+        return Number.isInteger(page) && page > 0 ? page : 1;
+    }
+
+    function getCategoryFromHash() {
+        const category = new URLSearchParams(window.location.hash.slice(1)).get('category');
+        return Object.hasOwn(CATEGORIES, category) ? category : 'npc';
     }
 
     function updateURLHash(page) {
-        // Solo actualiza el hash si es diferente para evitar entradas duplicadas en el historial
-        if (getCurrentPageFromHash() !== page) {
-            window.location.hash = `#page=${page}`;
-        }
+        const hash = `#category=${currentCategory}&page=${page}`;
+        if (window.location.hash !== hash) window.location.hash = hash;
     }
 
     async function fetchData() {
@@ -63,13 +88,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            allItems = await response.json();
-            totalItemsCountSpan.textContent = allItems.length;
+            const npcItems = await response.json();
+            const catalogResponse = await fetch('catalog.json');
+            if (!catalogResponse.ok) throw new Error(`Catálogo HTTP ${catalogResponse.status}`);
+            const catalog = await catalogResponse.json();
+            allItems = npcItems.map(item => ({ ...item, category: 'npc' })).concat(catalog);
+            currentCategory = getCategoryFromHash();
+            categoryButtons.forEach(button => {
+                button.querySelector('.category-count').textContent = allItems.filter(item => item.category === button.dataset.category).length;
+            });
+            filterItems();
 
             // Establecer currentPage desde la URL ANTES del primer render
             currentPage = getCurrentPageFromHash();
             // Asegurarse de que currentPage no exceda el total de páginas
-            const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
+            const totalPages = Math.ceil(visibleItems.length / ITEMS_PER_PAGE);
             if (currentPage > totalPages && totalPages > 0) {
                 currentPage = totalPages;
                 updateURLHash(currentPage); // Corregir URL si estaba fuera de rango
@@ -84,7 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
         } catch (error) {
             console.error("Error al cargar los datos de los NPC:", error);
-            galleryContainer.innerHTML = "<p>Error al cargar los skins...</p>";
+            status.textContent = 'No se pudo cargar el catálogo. Recarga la página para volver a intentarlo.';
+            galleryContainer.innerHTML = '';
             renderCart();
         }
     }
@@ -96,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function navigateToPage(pageNumber) {
-        const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
+        const totalPages = Math.ceil(visibleItems.length / ITEMS_PER_PAGE);
         if (pageNumber >= 1 && pageNumber <= totalPages) {
             currentPage = pageNumber;
             updateURLHash(currentPage); // Actualiza la URL
@@ -121,16 +155,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- renderGallery y funciones de botones (actualizadas para usar navigateToPage) ---
     function renderGallery() {
         galleryContainer.innerHTML = '';
+        galleryContainer.dataset.category = currentCategory;
         
         const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
         const endIndex = startIndex + ITEMS_PER_PAGE;
-        const itemsToDisplay = allItems.slice(startIndex, endIndex);
+        const itemsToDisplay = visibleItems.slice(startIndex, endIndex);
 
-        if (allItems.length === 0 && !galleryContainer.querySelector('p')) {
-            galleryContainer.innerHTML = "<p>Aún no hay skins disponibles.</p>";
+        if (visibleItems.length === 0) {
+            galleryContainer.innerHTML = "<p>No hay recursos que coincidan con tu búsqueda.</p>";
             return;
         }
-        if (itemsToDisplay.length === 0 && allItems.length > 0) {
+        if (itemsToDisplay.length === 0 && visibleItems.length > 0) {
              galleryContainer.innerHTML = "<p>No hay más skins para mostrar en esta página.</p>";
              return;
         }
@@ -142,7 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const img = document.createElement('img');
             img.src = item.png_url;
-            img.alt = `Skin ${item.name}`;
+            img.alt = `${CATEGORIES[item.category].title}: ${item.name}`;
+            img.decoding = 'async';
             img.loading = 'lazy';
 
             const name = document.createElement('h3');
@@ -154,7 +190,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.appendChild(img);
             card.appendChild(name);
+            const download = document.createElement('a');
+            download.className = 'download-swf';
+            download.href = item.swf_url;
+            download.download = item.swf_url.split('/').pop();
+            download.textContent = 'Descargar SWF';
+            download.setAttribute('aria-label', `Descargar SWF de ${item.name}`);
             card.appendChild(addButton);
+            card.appendChild(download);
             galleryContainer.appendChild(card);
         });
         updateAllGalleryButtonVisuals();
@@ -196,9 +239,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderPaginationControls() {
         paginationControlsContainer.innerHTML = '';
-        if (allItems.length === 0) return; // No mostrar paginación si no hay items
+        if (visibleItems.length === 0) return; // No mostrar paginación si no hay items
 
-        const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
+        const totalPages = Math.ceil(visibleItems.length / ITEMS_PER_PAGE);
 
         if (totalPages <= 1) return;
 
@@ -272,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderCart() {
     cartItemsUl.innerHTML = ''; // Limpiar siempre antes de re-renderizar
     cartCountSpan.textContent = cart.size;
-    downloadSelectedBtn.disabled = cart.size === 0;
+    downloadSelectedBtn.disabled = downloading || cart.size === 0;
 
     if (cart.size === 0) {
         const emptyLi = document.createElement('li');
@@ -302,11 +345,12 @@ function renderCart() {
                     imgThumbnail.src = item.png_url; // Usar la URL del PNG
                     imgThumbnail.alt = `Miniatura de ${item.name}`;
                     imgThumbnail.classList.add('cart-item-thumbnail');
+                    if (item.category === 'auras') imgThumbnail.classList.add('aura-preview');
                     imgThumbnail.loading = 'lazy'; // Puede ser útil si hay muchas imágenes
 
                     // Crear el span para el nombre
                     const itemNameSpan = document.createElement('span');
-                    itemNameSpan.textContent = item.name; // El nombre del item (ID)
+                    itemNameSpan.textContent = `${CATEGORIES[item.category].title} · ${item.name}`; // El nombre del item (ID)
 
                     // Añadir imagen y nombre al contenedor de información
                     itemInfo.appendChild(imgThumbnail);
@@ -318,6 +362,7 @@ function renderCart() {
                     removeBtn.classList.add('remove-item-btn');
                     removeBtn.innerHTML = '<i class="fas fa-times"></i>';
                     removeBtn.title = "Quitar del carrito";
+                    removeBtn.setAttribute('aria-label', `Quitar ${item.name} del carrito`);
                     removeBtn.addEventListener('click', () => {
                         cart.delete(itemId);
                         saveCartToStorage();
@@ -332,7 +377,7 @@ function renderCart() {
                     cart.delete(itemId);
                     saveCartToStorage();
                     cartCountSpan.textContent = cart.size; // Actualizar contador directamente
-                    downloadSelectedBtn.disabled = cart.size === 0;
+                    downloadSelectedBtn.disabled = downloading || cart.size === 0;
                 }
             });
         } else {
@@ -357,6 +402,7 @@ function renderCart() {
             return;
         }
         const originalButtonText = downloadSelectedBtn.innerHTML;
+        downloading = true;
         downloadSelectedBtn.disabled = true;
         downloadSelectedBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
         const zip = new JSZip();
@@ -378,8 +424,8 @@ function renderCart() {
                 else console.error(`Fallo al descargar ${item.id}.swf:`, swfResult.reason);
                 if (pngResult.status === 'fulfilled') pngBlob = pngResult.value;
                 else console.error(`Fallo al descargar ${item.id}.png:`, pngResult.reason);
-                if (swfBlob) folder.file(`${item.id}.swf`, swfBlob);
-                if (pngBlob) folder.file(`${item.id}.png`, pngBlob);
+                if (swfBlob) folder.folder(item.category).file(item.swf_url.split('/').pop(), swfBlob);
+                if (pngBlob) folder.folder(item.category).file(item.png_url.split('/').pop(), pngBlob);
                 if (swfBlob || pngBlob) filesSuccessfullyAddedToZip++;
                 return {itemId, status: (swfBlob || pngBlob) ? 'partial_or_full_success' : 'both_failed'};
             });
@@ -403,26 +449,35 @@ function renderCart() {
         } else {
             alert("No se pudieron agregar archivos al ZIP...");
         }
+        downloading = false;
         downloadSelectedBtn.disabled = cart.size === 0;
         downloadSelectedBtn.innerHTML = originalButtonText;
     });
 
 
     // --- Event Listener para cambios en el Hash de la URL ---
-    window.addEventListener('hashchange', () => {
-        const pageFromHash = getCurrentPageFromHash();
-        if (pageFromHash !== currentPage) { // Solo actuar si la página realmente cambió
-            // Validar que pageFromHash esté dentro de los límites una vez que allItems esté cargado
-            if (allItems.length > 0) {
-                const totalPages = Math.ceil(allItems.length / ITEMS_PER_PAGE);
-                if (pageFromHash > totalPages || pageFromHash < 1) {
-                    // Si está fuera de rango, podría redirigir a la página 1 o la última
-                    // o simplemente no hacer nada si ya se manejó en fetchData.
-                    // Por ahora, dejamos que navigateToPage maneje la validación.
-                }
-            }
-            navigateToPage(pageFromHash);
-        }
+    function restoreLocation() {
+        currentCategory = getCategoryFromHash();
+        filterItems();
+        const totalPages = Math.max(1, Math.ceil(visibleItems.length / ITEMS_PER_PAGE));
+        currentPage = Math.min(getCurrentPageFromHash(), totalPages);
+        renderPage();
+    }
+
+    window.addEventListener('hashchange', restoreLocation);
+    categoryButtons.forEach(button => button.addEventListener('click', () => {
+        searchInput.value = '';
+        currentCategory = button.dataset.category;
+        filterItems();
+        currentPage = 1;
+        updateURLHash(1);
+        renderPage();
+    }));
+    searchInput.addEventListener('input', () => {
+        filterItems();
+        currentPage = 1;
+        updateURLHash(1);
+        renderPage();
     });
 
     // --- Inicialización ---
